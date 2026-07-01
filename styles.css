@@ -270,7 +270,19 @@ h1,h2,h3,h4{font-family:'Sora',sans-serif;line-height:1.1;letter-spacing:-.02em;
   .hero__badge{min-width:calc(50% - 7px);flex:1}
 }
 @media (max-width:520px){
-  .grid--3,.steps,.crops{grid-template-columns:1fr}
+  /* Tarjetas en filas de 2 en celular */
+  .grid--3,.steps,.crops{grid-template-columns:repeat(2,1fr)}
+  .grid,.steps{gap:14px}
+  .crops{gap:12px}
+  .card,.service,.step{padding:20px 15px}
+  .card h3,.service h3,.step h3{font-size:1.04rem}
+  .card p,.service p,.step p{font-size:.9rem}
+  .card__icon{width:46px;height:46px;margin-bottom:12px}
+  .step__no{width:44px;height:44px;font-size:1.15rem;margin-bottom:12px}
+  .service__no{font-size:1.85rem;margin-bottom:8px}
+  .crop{padding:18px 8px;font-size:.92rem}
+  .crop__ic{width:52px;height:52px;margin-bottom:10px}
+
   .stats__grid{grid-template-columns:1fr 1fr}
   .footer__grid{grid-template-columns:1fr}
   .section{padding:64px 0}

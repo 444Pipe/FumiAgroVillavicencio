@@ -1,0 +1,12 @@
+# Dependencias
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Clips de origen sin usar (no se despliegan)
+statics/SaveClip.App_*.mp4
+statics/whatsApp_logo.png

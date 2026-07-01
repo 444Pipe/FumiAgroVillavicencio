@@ -14,16 +14,18 @@ const ROOT = __dirname;
 
 // Assets estáticos: Express (send) resuelve MIME types y
 // soporta HTTP Range requests, necesario para el video .mp4.
+//
+// Cache: 'no-cache' NO significa "no cachear", sino "cachear pero
+// revalidar siempre" (con ETag -> 304 si no cambió). Como los archivos
+// no llevan hash en el nombre, esto evita que tras un redeploy el
+// navegador sirva un CSS/JS/HTML viejo y, p. ej., no muestre la imagen.
 app.use(
   express.static(ROOT, {
     extensions: ['html'],
-    setHeaders(res, filePath) {
-      // Cache largo para media/estilos, corto para el HTML.
-      if (/\.(?:mp4|jpg|jpeg|png|webp|svg|css|js)$/i.test(filePath)) {
-        res.setHeader('Cache-Control', 'public, max-age=604800');
-      } else {
-        res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
-      }
+    etag: true,
+    lastModified: true,
+    setHeaders(res) {
+      res.setHeader('Cache-Control', 'no-cache');
     },
   })
 );
@@ -32,7 +34,10 @@ app.use(
 app.get('/healthz', (_req, res) => res.status(200).send('ok'));
 
 // Cualquier otra ruta muestra el landing (una sola página).
-app.get('*', (_req, res) => res.sendFile(path.join(ROOT, 'index.html')));
+app.get('*', (_req, res) => {
+  res.setHeader('Cache-Control', 'no-cache');
+  res.sendFile(path.join(ROOT, 'index.html'));
+});
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`FumiAgro Villavicencio · servidor activo en el puerto ${PORT}`);

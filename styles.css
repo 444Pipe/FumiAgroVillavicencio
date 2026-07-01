@@ -98,11 +98,14 @@ h1,h2,h3,h4{font-family:'Sora',sans-serif;line-height:1.1;letter-spacing:-.02em;
 
 /* ===== HERO ===== */
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding:120px 0 60px}
-.hero__bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.08);animation:heroZoom 18s ease-in-out infinite alternate}
+.hero__bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.08);animation:heroZoom 18s ease-in-out infinite alternate;background-image:url('statics/hero-desktop.jpg')}
+@supports (background-image:image-set(url("i.webp") type("image/webp"))){
+  .hero__bg{background-image:image-set(url('statics/hero-desktop.webp') type('image/webp'),url('statics/hero-desktop.jpg') type('image/jpeg'))}
+}
 @keyframes heroZoom{to{transform:scale(1.16)}}
 .hero__overlay{position:absolute;inset:0;background:
-  linear-gradient(100deg,rgba(9,28,15,.9) 0%,rgba(9,28,15,.55) 42%,rgba(9,28,15,.15) 75%),
-  linear-gradient(0deg,rgba(9,28,15,.6),transparent 45%)}
+  linear-gradient(100deg,rgba(9,28,15,.92) 0%,rgba(9,28,15,.62) 40%,rgba(9,28,15,.22) 72%,rgba(9,28,15,.05) 100%),
+  linear-gradient(0deg,rgba(9,28,15,.55),transparent 42%)}
 .hero__grain{position:absolute;inset:0;opacity:.5;background:radial-gradient(circle at 20% 80%,rgba(123,192,67,.18),transparent 40%)}
 .hero__content{position:relative;z-index:2;max-width:760px;color:#fff}
 .hero__eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'Sora',sans-serif;font-weight:500;font-size:.85rem;color:#e8f5df;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);padding:8px 16px;border-radius:100px;backdrop-filter:blur(6px);margin-bottom:26px}
@@ -274,6 +277,17 @@ h1,h2,h3,h4{font-family:'Sora',sans-serif;line-height:1.1;letter-spacing:-.02em;
   .btn--lg{width:100%;justify-content:center}
   .hero__actions{flex-direction:column}
   .hero__actions .btn{width:100%;justify-content:center}
+}
+
+/* Hero art-directed en celular: recorte vertical enfocado en el dron
+   + overlay más envolvente para que el título contraste sin perder la foto */
+@media (max-width:640px){
+  .hero__bg{background-image:url('statics/hero-mobile.jpg')}
+  @supports (background-image:image-set(url("i.webp") type("image/webp"))){
+    .hero__bg{background-image:image-set(url('statics/hero-mobile.webp') type('image/webp'),url('statics/hero-mobile.jpg') type('image/jpeg'))}
+  }
+  .hero__overlay{background:
+    linear-gradient(180deg,rgba(9,28,15,.82) 0%,rgba(9,28,15,.42) 30%,rgba(9,28,15,.5) 60%,rgba(9,28,15,.9) 100%)}
 }
 
 /* Reduced motion */
